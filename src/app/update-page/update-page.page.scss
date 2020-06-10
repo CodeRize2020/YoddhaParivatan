@@ -1,0 +1,40 @@
+
+ion-button {
+    --background:#f9841d;
+    --background-focused:#f9841d;
+    --background-activated:#f9841d;
+  }
+  
+
+  //Header CSS
+.Tab_CSS
+{
+    background: #0c4079;
+    border: 2px solid #f2f2f2;
+    color: #f2f2f2;
+  }
+
+  .Tab_CSS:hover
+{
+    background: #f9841d;
+}
+.active
+{
+  background: #f9841d;
+}
+
+
+
+ion-toolbar{
+    --background:#0c4079;
+    color: #ffff;
+    text-align: center;
+  }
+// End Header CSS
+ion-card-header{
+  text-align: center;
+}
+
+ion-tabs{
+  display: none !important;
+}

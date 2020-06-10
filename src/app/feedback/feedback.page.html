@@ -1,0 +1,59 @@
+<ion-header  class="Tab_CSS">
+  <ion-toolbar>
+    <ion-buttons slot="start" style="color: white;">
+      <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+    <ion-title>{{ 'Feedback' | translate}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-row>
+    <span style="font-size: 20px;
+    margin-top: 74px;
+  margin-left: 130px; color: #f9841d; "><h4>Yoddha Parivartan</h4></span>
+    <img src="../../assets/Logo.png"
+     style="height: 55px;
+    width: 195px;
+    margin-top: -50px;">
+  </ion-row>
+<br><br>
+  <div *ngIf="isFeedbackVisible">
+    <form #form="ngForm">
+    <ng-template [ngIf]="isFeedbackVisible">
+      <ion-card>
+        <ion-card-header style="text-align: center;">
+          {{ 'Feedback' | translate}}
+
+          </ion-card-header>
+          <ion-item>
+            <ion-label position="floating">
+              {{ 'Feedback' | translate}}
+
+            </ion-label>
+            <ion-textarea type="text" autocomplete="off" value="{{Feedback}}" id="Feedback" name="Feedback" [(ngModel)]="Feedback" 
+            placeholder="{{ 'Enter Feedback Here' | translate}}" required></ion-textarea>
+          </ion-item>
+      </ion-card>
+    </ng-template>
+    
+    <ion-button type="Submit" style="width:50%; margin-left: 25%;" (click)="addFeedback();" [disabled]="form.invalid">
+      {{ 'Submit' | translate}}
+
+    </ion-button>
+
+  </form>
+</div>
+
+
+
+ 
+</ion-content>
+
+<ion-footer style="height: 30px;">
+  <ion-toolbar style="margin-top: -12px;">
+    <small style="margin-bottom: 3px;">
+      <b style="text-align: center;color:hsl(28, 95%, 55%); float:center; margin-bottom: 20px;">Powered by CodeRize
+        Technologies Pvt. Ltd.</b>
+    </small>  </ion-toolbar>
+</ion-footer>

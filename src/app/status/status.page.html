@@ -1,0 +1,178 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start" style="color: white;">
+      <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title style="color: #f9841d;">{{ 'MIGRATION STATUS' | translate }}</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+ <!-- Tabs -->
+ <div class="tab-wrap">
+  <ion-row>
+  <ion-col col-6 class="Tab_CSS"> 
+  <ion-tab-button (click)="btn_MigrationTabClick()">
+    <ion-icon name="subway"></ion-icon>
+    <ion-label>{{ 'Migration' | translate }}</ion-label>
+  </ion-tab-button>
+</ion-col> 
+<ion-col col-6 class="Tab_CSS active"> 
+  <ion-tab-button (click)="btn_statusTabClick()">
+    <ion-icon name="create"></ion-icon>
+    <ion-label>{{ 'Migration Status' | translate }}</ion-label>
+  </ion-tab-button>
+</ion-col>
+</ion-row>
+</div>
+
+
+<ion-card>
+  <ion-card-header style="text-align: center;">
+    {{ 'Migration Status Details' | translate }}
+  </ion-card-header>
+  <ion-button style="text-align: center; margin-left: 113px;" type="button" [disabled]="shouldDisable" (click)="checkStatus()">
+        {{ 'Check Status' | translate }}
+  </ion-button>
+  <br>
+  <div *ngIf="isLableVisible">
+    <ng-template [ngIf]="isCheckInfoVisible">
+      <p style="text-align: center;"> {{ 'Check Status after time' | translate }} = {{endTime}}</p>
+      </ng-template>
+      </div> 
+
+  <div *ngIf="isCheckInfoVisible">
+    <ng-template [ngIf]="isCheckInfoVisible">
+<div class="scrollTable">
+  <table class="ion-scroll">
+    <thead>
+      <tr style="background-color: #0c4079; color: #f2f2f2;" class="tableheader">
+        <th style="width: 85px;">{{ 'MRN No' | translate }}</th>
+        <th style="width: 85px;">{{ 'To Pincode' | translate }}</th>
+        <th style="width: 85px;">{{ 'Travel Mode' | translate }}</th>
+        <th style="width: 85px;">{{ 'Action' | translate }}</th>
+      </tr>
+    </thead>
+    <tbody style="font:normal; text-align: center;">
+      <tr *ngFor="let lists of userRes; let i = index">
+        <td>
+          {{lists.mrn_number | translate}}
+        </td>
+        <td>
+          {{lists.to_pincode | translate}}
+        </td>
+        <td>
+          {{lists.travel_mode | translate}}
+        </td>
+        <td>
+        <ion-button size="small" class="btn btn-default"  style="color: #f2f2f2;" type="button" (click)="showDetails(lists.mrn_number,i)">
+          {{ 'View' | translate }}
+        </ion-button>
+      </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</ng-template>
+</div>
+
+</ion-card>
+<!-- End -->
+
+<div *ngIf="isUserInfoVisible">
+  <ng-template [ngIf]="isUserInfoVisible">
+<ion-card style="border:1px solid black;">
+   
+ 
+   <!-- <div *ngFor="let listsdata of userResDetails; let i = index" style="margin-left: 15px;"> -->
+  
+  
+    <ion-card style="border:1.5px solid black;">
+      <ion-card-header style="text-align: center;">
+        {{ 'Migration Details' | translate }}      
+       </ion-card-header>
+   
+  <div style="margin-left: 15px;">
+    <ion-label>{{ 'MRN No' | translate }} :</ion-label>
+    {{userResDetails.mrn_number | translate }}
+</div><br><br>
+
+<div style="margin-left: 15px;"> 
+    <ion-label>{{ 'To Pincode' | translate }} :</ion-label>
+    {{userResDetails.to_pincode | translate }}
+</div><br><br>
+
+<div style="margin-left: 15px;">
+    <ion-label>{{ 'From Pincode' | translate }} : </ion-label>
+    {{userResDetails.from_pincode | translate }}
+</div><br><br>
+
+<div style="margin-left: 15px;">
+    <ion-label>{{ 'Travel Mode' | translate }} : </ion-label>
+    {{userResDetails.travel_mode | translate }}
+</div><br><br>
+<div style="margin-left: 15px;">
+    <ion-label>{{ 'Total Member' | translate }} : </ion-label>
+    {{userResDetails.total_member | translate }}
+</div><br><br>
+    </ion-card>
+
+
+    <ion-card style="border:1.5px solid black;">
+      <ion-card-header style="text-align: center;">
+        {{ 'Status Details' | translate }}
+       </ion-card-header>
+    
+
+<ion-card style="border:1px solid black;">
+  
+  <ion-card-header style="text-align: center;">
+    {{ 'Sender Status Details' | translate }}
+   </ion-card-header>
+
+      <div style="margin-left: 15px;">
+        <ion-label>{{ 'Sender Status' | translate }} :</ion-label>
+        {{userResDetails.sender_status | translate }}
+    </div><br><br>
+   
+    <div style="margin-left: 15px;">
+      <ion-label>{{ 'Sender Description' | translate }} :</ion-label>
+      {{userResDetails.sender_description | translate }}
+  </div><br><br>
+</ion-card>
+
+  <ion-card style="border:1px solid black;">
+    <ion-card-header style="text-align: center;">
+      {{ 'Receiver Status Details' | translate }}
+     </ion-card-header>
+    <div style="margin-left: 15px;">
+      <ion-label >{{ 'Receiver Status' | translate }} :</ion-label>
+      {{userResDetails.receiver_status | translate }}
+  </div><br><br>
+ 
+  <div style="margin-left: 15px;"> 
+      <ion-label>{{ 'Receiver Description' | translate }} :</ion-label>
+      {{userResDetails.receiver_description | translate }}
+  </div>
+  <br><br>
+  </ion-card>
+    </ion-card>
+ 
+   
+  
+  <!-- </div> -->
+  </ion-card>
+</ng-template>
+
+</div>
+
+
+
+</ion-content>
+<ion-footer style="height: 30px;">
+  <ion-toolbar style="margin-top: -12px;">
+    <small style="margin-bottom: 3px;">
+      <b style="text-align: center;color:hsl(28, 95%, 55%); float:center; margin-bottom: 20px;">Powered by CodeRize
+        Technologies Pvt. Ltd.</b>
+    </small>  </ion-toolbar>
+</ion-footer>

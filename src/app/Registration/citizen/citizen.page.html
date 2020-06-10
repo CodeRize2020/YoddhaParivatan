@@ -1,0 +1,393 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start" style="color: white;">
+      <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+    <ion-title  style="color:#f9841d;">{{ 'Registration' | translate}}
+</ion-title>
+  </ion-toolbar>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/leaflet.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/leaflet.css" rel="stylesheet"/>
+</ion-header>
+
+<ion-content>
+
+ <!-- Start form start Add Citizen -->
+ <form #form="ngForm">
+
+ 
+  <!-- Start PersonalInfo Template Details -->
+  <div *ngIf="isPersonalInfoVisible">
+  <ng-template [ngIf]="isPersonalInfoVisible">
+    <ion-card>
+      <ion-card-header>
+        
+        {{ 'Personal Details' | translate}}
+
+        </ion-card-header>
+         
+        <ion-item>
+          <ion-label position="floating">
+          <span style="color:red">*</span>
+          
+           {{ 'Name' | translate}}
+
+          </ion-label>
+          <ion-input type="text" name="Name" #Name_1="ngModel" [(ngModel)]="Name" required
+           placeholder="{{ 'Enter Full Name' | translate}}"></ion-input>
+          <div style="color:red"  *ngIf="Name_1.errors && (Name_1.dirty || Name_1.touched)">
+            <p *ngIf="Name_1.errors.required">*{{ 'Please Enter Name' | translate}}</p>
+           </div>
+        </ion-item>
+
+      
+        <ion-item>
+          <ion-label position="floating">
+            <span style="color:red">*</span>
+              {{ 'Mobile Number' | translate}}
+
+            </ion-label>
+            <ion-input type="tel" minlength="10" maxlength="12" pattern="[0-9]{10}" name="MobileNo" #MobileNo_1="ngModel" minlength="10" pattern="[0-9]{10}" [(ngModel)]="MobileNo" 
+            required placeholder="{{ 'Enter 10 digit Mobile Number' | translate}}"></ion-input>
+            <div style="color:red" *ngIf="MobileNo_1.errors && (MobileNo_1.dirty || MobileNo_1.touched)">
+              <p *ngIf="MobileNo_1.errors.required">
+               {{ 'Please Enter a Mobile Number' | translate}}
+
+              </p>
+            </div>
+            <div style="color:red" *ngIf="MobileNo_1.errors && (MobileNo_1.dirty || MobileNo_1.touched)">
+              <p *ngIf="MobileNo_1.errors.minlength">
+                {{ 'Please Enter atleast 10 Number & Accept only Numbers' | translate}}
+
+              </p>
+            </div>
+            <div style="color:red" *ngIf="MobileNo_1.errors && (MobileNo_1.dirty || MobileNo_1.touched)">
+              <p *ngIf="MobileNo_1.errors.maxlength">
+                {{ 'Mobile Number cannot exceed 10 Number' | translate}}
+
+              </p>
+            </div>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">
+          <span style="color:red">*</span>
+            {{ 'Password' | translate}}
+
+          </ion-label>
+          <ion-input type="Password" name="Password"  #Password_2="ngModel" minlength="6" [(ngModel)]="Password" required 
+          placeholder="{{ 'Enter Password' | translate}}" ></ion-input>
+          <!-- (ngModelChange)="hashPassword($event)" -->
+          <div style="color:red" *ngIf="Password_2.errors && (Password_2.dirty || Password_2.touched)">
+            <p *ngIf="Password_2.errors.required">*{{ 'Please Enter a Password' | translate}}</p>
+           </div>
+           <div style="color:red" *ngIf="Password_2.errors && (Password_2.dirty || Password_2.touched)">
+            <p *ngIf="Password_2.errors.minlength">
+              Please Enter atleast 6 characters{{ 'Please Enter atleast 6 characters' | translate}}
+
+            </p>
+          </div>
+        </ion-item>
+
+      
+
+
+        <ion-item>
+          <ion-label position="floating">
+            {{ 'Email' | translate}}
+          </ion-label>
+          <ion-input type="text" name="Email " #Email_1="ngModel" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"  [(ngModel)]="Email" 
+          placeholder="{{ 'Enter Email Address' | translate}}"></ion-input>
+        </ion-item>
+
+
+        <ion-item no-lines>
+          <span style="color:red">*</span>&nbsp;
+          <ion-label>
+            {{ 'Gender' | translate}}
+          </ion-label>        
+          <input type="radio" value="Female" name="Gender" #Gender_1="ngModel" [(ngModel)]="Gender"> &nbsp; {{ 'Female' | translate}}
+       &nbsp;<input type="radio" value="Male" name="Gender" #Gender_1="ngModel" [(ngModel)]="Gender"> &nbsp; {{ 'Male' | translate}}
+      </ion-item>
+      <div style="color:red"  *ngIf="Gender_1.errors && (Gender_1.dirty || Gender_1.touched)">
+        <p *ngIf="Gender_1.errors.required">*{{ 'Please Select Gender' | translate}}</p>
+       </div>
+
+
+
+        <ion-item>
+          <ion-label position="floating">
+            {{ 'Profession' | translate}}
+          </ion-label>
+          <ion-select placeholder="{{ 'Choose Your Profession' | translate}}" name="Profession" #Profession_1="ngModel"
+           [(ngModel)]="Profession">
+           <ion-select-option disabled>{{ 'Scroll Down' | translate}}</ion-select-option>
+            <ion-select-option value="HealthCare">{{ 'Doctor/Nurse/Paramedic' | translate}}</ion-select-option>
+            <ion-select-option value="Pharmaceutical">{{ 'Chemist/Pharmacy' | translate}}</ion-select-option>
+            <ion-select-option value="Legal">{{ 'Police/Officers/Law Enforcement' | translate }}</ion-select-option>
+            <ion-select-option value="Financial">{{ 'Bank/Finance/ATM' | translate }}</ion-select-option>
+            <ion-select-option value="Media">{{ 'Press/Media/Reporter' | translate }}</ion-select-option>
+            <ion-select-option value="Delivery">{{ 'Delivery' | translate }}</ion-select-option>
+            <ion-select-option value="Retail">{{ 'Retailer/Wholesaler/Groceries' | translate }}</ion-select-option>
+            <ion-select-option value="Industrial">{{ 'Industry/Manufacturer' | translate }}</ion-select-option>
+            <ion-select-option value="Telecommunication">{{ 'Telecommunication/Cable' | translate }}</ion-select-option>
+            <ion-select-option value="Transport">{{ 'Transport' | translate }}</ion-select-option>
+            <ion-select-option value="Petroleum">{{ 'Petrol Pumps/Oil/Gas' | translate }}</ion-select-option>
+            <ion-select-option value="Food">{{ 'Food/Dairy' | translate }}</ion-select-option>
+            <ion-select-option value="Worker">{{ 'Worker' | translate }}</ion-select-option>
+            <ion-select-option value="Other">{{ 'Other' | translate }}</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+    </ion-card>
+  </ng-template>
+</div>
+    <!-- End PersonalInfo Template Details -->
+
+
+       <!-- Start Location Template Details -->
+       <div *ngIf="isHomeAddressLocationInfoVisible">
+        <ng-template [ngIf]="isHomeAddressLocationInfoVisible">
+          <ion-card>
+            <ion-card-header>
+              {{ 'Home Location' | translate }}</ion-card-header>
+              <div>
+                <ion-label class="Address_CSS" for="Home_Address">{{ 'Home Address' | translate }}</ion-label>
+                <textarea id="Home_Address" value="{{Home_Address}}"  name="Home_Address"  placeholder="{{ 'Home Address' | translate }}" [(ngModel)]="Home_Address" 
+                 type="text"  style="border-bottom: 1px black ;"></textarea>
+                    <div class="Home_Map_Div">
+                      <div>
+                        
+                        <div style="padding-left: 10px;">
+                          <p style="color:red;font-size:small">{{ 'Your are Here, Drag Marker to choose accurate Home Location' | translate }}
+                           </p>
+                          </div>
+                <ion-row style="margin-left: 26px;">
+            
+                    <ion-button (click)="closedMapDiv()" style="width:50%; margin-left: 25%;">
+                     {{ 'Close' | translate }}
+                    </ion-button>
+                  
+                </ion-row>
+
+                <div id="citizenmap"></div>
+                
+
+                      </div>
+                    </div>
+              </div>
+      
+  
+      
+        <ion-item hidden>
+          <ion-label position="floating">
+           {{ 'Home Latitude' | translate }}
+          </ion-label>
+          <ion-input type="text" value="{{Home_Add_lat}}" id="Home_Add_lat" name="Home_Add_lat" [(ngModel)]="Home_Add_lat" 
+          placeholder="{{ 'Select or Choose Location' | translate}}"></ion-input>
+        </ion-item>
+      
+        <ion-item hidden>
+          <ion-label position="floating">
+          {{ 'Home Longitude' | translate }}
+ </ion-label>
+          <ion-input type="text" value="{{Home_Add_long}}" id="Home_Add_long" name="Home_Add_long"
+           [(ngModel)]="Home_Add_long" placeholder="{{ 'Select or Choose Location' | translate }}"></ion-input>
+        </ion-item>
+          </ion-card>
+        </ng-template>
+      </div>
+          <!-- End Location Template Details -->
+
+
+
+
+    <!-- Start PersonalMedicalInfo Template Details -->
+<div *ngIf="isPersonalMedicalInfoVisible">
+  <ng-template [ngIf]="isPersonalMedicalInfoVisible">
+    <ion-card>
+      <ion-card-header>
+        {{ 'Personal Medical Details' | translate }}
+        </ion-card-header>
+        <ion-item>
+          <ion-label position="floating">
+            <span style="color:red">*</span>
+            {{ 'Age' | translate }}
+          </ion-label>
+          <ion-input type="number" name="Age" #Age_1="ngModel" [(ngModel)]="Age" required placeholder="{{ 'Enter Age' | translate }}"></ion-input>
+          <div style="color:red"  *ngIf="Age_1.errors && (Age_1.dirty || Age_1.touched)">
+            <p *ngIf="Age_1.errors.required">*{{ 'Please Enter Age' | translate }}</p>
+           </div>
+        </ion-item>
+
+  
+
+        <ion-item>
+          <ion-label position="floating">
+            <span style="color:red">*</span>
+             {{ 'Blood Group' | translate }}
+  
+          </ion-label>        
+          <ion-select placeholder="{{ 'Select Blood Group' | translate }}" name="BloodGroup" #BloodGroup_1="ngModel" [(ngModel)]="BloodGroup" required>
+          <ion-select-option disabled>{{ 'Scroll Down' | translate}}</ion-select-option>
+          <ion-select-option value="O-">O-</ion-select-option>
+          <ion-select-option value="O+">O+</ion-select-option>
+          <ion-select-option value="A-">A-</ion-select-option>
+          <ion-select-option value="A+">A+</ion-select-option>
+          <ion-select-option value="B-">B-</ion-select-option>
+          <ion-select-option value="B+">B+</ion-select-option>
+          <ion-select-option value="AB-">AB-</ion-select-option>
+          <ion-select-option value="AB+">AB+</ion-select-option>
+          <ion-select-option value="Unknown">{{ 'Unknown' | translate }}</ion-select-option>
+        </ion-select>
+        <div style="color:red"  *ngIf="BloodGroup_1.errors && (BloodGroup_1.dirty || BloodGroup_1.touched)">
+          <p *ngIf="BloodGroup_1.errors.required">*{{ 'Please Select Blood Group' | translate }}</p>
+         </div>
+      </ion-item>
+      
+
+        <ion-item>
+          <ion-label position="floating">
+            {{ 'Weight' | translate }}</ion-label>
+          <ion-input type="number" name="Weight" [(ngModel)]="Weight" placeholder="{{ 'Enter Weight' | translate }}"></ion-input>
+        </ion-item>
+
+       <ion-item no-lines>
+        <ion-label>{{ 'Smoking' | translate }}</ion-label>
+        <ion-checkbox name="Smoking" check="true"  [(ngModel)]="Smoking"></ion-checkbox>
+      </ion-item>
+
+       <ion-item no-lines>
+        <ion-label>{{ 'Drinking' | translate }}</ion-label>
+        <ion-checkbox name="Drinking" check="true" [(ngModel)]="Drinking"></ion-checkbox>
+      </ion-item>
+ 
+
+    </ion-card>
+  </ng-template>
+</div>
+    <!-- End PersonalMedicalInfo Template Details -->
+
+
+    <!-- Start Diabetes Template Details -->
+    <div *ngIf="isDiabetesVisible">
+      <ng-template [ngIf]="isDiabetesVisible">
+        <ion-card>
+          <ion-card-header>
+           {{ 'Health Details' | translate }}
+            </ion-card-header>
+     
+           <ion-item no-lines>
+            <ion-label>{{ 'Diabetes' | translate }}</ion-label>
+            <ion-checkbox name="Diabetes" check="true"  [(ngModel)]="Diabetes"></ion-checkbox>
+          </ion-item>
+
+  
+
+           <ion-item no-lines>
+            <ion-label>{{ 'Blood Pressure' | translate }}</ion-label>
+            <ion-checkbox name="Blood_Pressure" check="true"  [(ngModel)]="Blood_Pressure"></ion-checkbox>
+          </ion-item>
+
+
+           <ion-item no-lines>
+            <ion-label>{{ 'Asthama' | translate }}</ion-label>
+            <ion-checkbox name="Asthama" check="true" [(ngModel)]="Asthama"></ion-checkbox>
+          </ion-item>
+
+
+           <ion-item no-lines>
+            <ion-label>{{'Hypertension' | translate }}</ion-label>
+            <ion-checkbox name="Hypertension" check="true"  [(ngModel)]="Hypertension"></ion-checkbox>
+          </ion-item>
+
+
+
+           <ion-item no-lines>
+            <ion-label>{{'Lung Disease' | translate }}</ion-label>
+            <ion-checkbox name="Lung_Disease" check="true" [(ngModel)]="Lung_Disease"></ion-checkbox>
+          </ion-item>
+
+
+
+           <ion-item no-lines>
+            <ion-label>{{'Heart Disease' | translate }}</ion-label>
+            <ion-checkbox name="Heart_Disease" check="true"  [(ngModel)]="Heart_Disease"></ion-checkbox>
+          </ion-item>
+    
+           <ion-item no-lines>
+            <ion-label>{{'None Of The Above (I am Fit)' | translate }}</ion-label>
+            <ion-checkbox name="No_Disease" check="true"  [(ngModel)]="No_Disease"></ion-checkbox>
+          </ion-item>
+
+          <ion-item no-lines>
+            <ion-label position="floating">
+            {{'Other Disease' | translate }}
+            </ion-label>
+            <ion-input type="text"  id="Other_Disease" name="Other_Disease" [(ngModel)]="Other_Disease" 
+            placeholder="{{'Enter Disease' | translate }}" ></ion-input>
+          </ion-item>
+      
+            <ion-button type="Submit" (click)="addCitizen();" style="width:50%; margin-left: 25%;" [disabled]="form.invalid">
+              {{'Submit' | translate }}
+            </ion-button>
+        
+            <!-- <ion-button ion-button (click)="hashPassword(Password)">Encrpt Password</ion-button> -->
+
+        </ion-card>
+      </ng-template>
+    </div>
+        <!-- End Diabetes Template Details -->
+
+
+
+</form>
+ <!-- End form Add Citizen -->
+
+    <!--End Citizen Details tab -->
+   <!-- Start Location Template Details -->
+   <div *ngIf="isCurrentAddressLocationInfoVisible">
+    <ng-template [ngIf]="isCurrentAddressLocationInfoVisible">
+      <ion-card>
+        <ion-card-header>
+          {{'Current Location' | translate }}
+          </ion-card-header>
+ 
+    <ion-item>
+      <ion-label position="floating">
+        Current Latitude
+      </ion-label>
+      <ion-input type="text" value="{{Current_lat}}" id="Current_lat" name="Current_lat" [(ngModel)]="Current_lat"
+       placeholder="{{ 'Select or Choose Location' | translate }}"></ion-input>
+    </ion-item>
+  
+    <ion-item>
+      <ion-label position="floating">
+     {{'Current Longitude' | translate }}
+      </ion-label>
+      <ion-input type="text" value="{{Current_long}}" id="Current_long" name="Current_long"
+       [(ngModel)]="Current_long" placeholder="{{ 'Select or Choose Location' | translate }}"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">
+      {{'Current Accuracy' | translate }}
+      </ion-label>
+      <ion-input type="text" [readonly]="isReadonly" value="{{Current_Loc_Accuracy}}" id="Current_Loc_Accuracy" 
+      name="Current_Loc_Accuracy" [(ngModel)]="Current_Loc_Accuracy" ></ion-input>
+    </ion-item>
+      </ion-card>
+    </ng-template>
+  </div>
+      <!-- End Location Template Details -->
+
+
+</ion-content>
+      
+<ion-footer style="height: 30px;">
+  <ion-toolbar style="margin-top: -12px;">
+    <small style="margin-bottom: 3px;">
+      <b style="text-align: center;color:hsl(28, 95%, 55%); float:center; margin-bottom: 20px;">Powered by CodeRize
+        Technologies Pvt. Ltd.</b>
+    </small>  </ion-toolbar>
+</ion-footer>

@@ -1,0 +1,36 @@
+.Tab_CSS
+{
+    background: #0c4079;
+    border: 2px solid #f2f2f2;
+    color: #f2f2f2;
+  }
+
+.login-content
+{
+  margin-top: 60px;
+}
+
+.btn_sign_in{
+margin-top: 25px;
+font-size: 16px;
+color: #fff;
+border-radius: 6px;
+margin-left: 140px;
+height: 40px;
+width: 125px;
+}
+
+
+ion-button {
+  --background:#f9841d;
+  --background-focused:#f9841d;
+  --background-activated:#f9841d;
+}
+
+
+ion-toolbar{
+  --background:#0c4079;
+  color: #ffff;
+  text-align: center;
+}
+

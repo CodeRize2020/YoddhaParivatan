@@ -1,0 +1,357 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start" style="color: white;">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title style="color: #f9841d;">{{ 'MIGRATION DETAILS' | translate }}</ion-title>
+  </ion-toolbar>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/leaflet.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/leaflet.css" rel="stylesheet" />
+</ion-header>
+
+<ion-content>
+  <!-- Tabs -->
+  <div class="tab-wrap">
+    <ion-row>
+      <ion-col col-6 class="Tab_CSS active">
+        <ion-tab-button (click)="btn_MigrationTabClick()">
+          <ion-icon name="subway"></ion-icon>
+          <ion-label>{{ 'Migration' | translate }}</ion-label>
+        </ion-tab-button>
+      </ion-col>
+      <ion-col col-6 class="Tab_CSS">
+        <ion-tab-button (click)="btn_statusTabClick()">
+          <ion-icon name="create"></ion-icon>
+          <ion-label>{{ 'Migration Status' | translate }}</ion-label>
+        </ion-tab-button>
+      </ion-col>
+    </ion-row>
+  </div>
+
+  <!-- Symptoms Form Start -->
+  <div style="padding-left: 10px; margin-right: 15px; margin-top: 20px;">
+    <p style="color:#0c4079; font-size:small; text-align: justify;">
+      <span style="color:red;font-size:small">*</span>
+      {{ 'You can fill this form, if you want to migrate to other Cities, States or Countries.' | translate}}
+      <br>
+      <span style="color:red;font-size:small">*</span>
+      {{ 'You can enter Migration Details in Past.' | translate }}
+      <br>
+      <span style="color:red;font-size:small">*</span>
+      {{ 'You can enter Migration Details, if you would like to move to your native place, for any reason.' | translate}}
+      <br>
+      <span style="color:red;font-size:small">*</span>
+      {{ 'How does this help? 
+     The information will be useful for government authorities for effective planning of Migrants and their
+ facility management.' | translate}}
+    </p>
+  </div>
+
+  <form #form="ngForm">
+    <div *ngIf="isSymptomsVisible">
+      <ion-card>
+        <ion-card-header class="ionCardHeader">
+          {{ 'Migration Details' | translate}}
+
+        </ion-card-header>
+        <ng-template [ngIf]="isRelocationVisible">
+
+          <ion-item>
+            <ion-label position="floating">
+              {{ 'Migration Date' | translate}}
+            </ion-label>
+            <ion-datetime display-format="DD/MM/YYYY" id="Rel_Start_Date" picker-format="DD MM YYYY" [min]="minDate"
+              max="2025-12-30" name="Rel_Start_Date" #Rel_Start_Date_1="ngModel" [(ngModel)]="Rel_Start_Date"
+              placeholder="{{'Select Date' | translate}}"></ion-datetime>
+          </ion-item>
+
+
+
+          <ion-item>
+            <ion-label position="floating">
+              <span style="color:red">*</span>
+              {{ 'Mode of Travel' | translate}}
+
+            </ion-label>
+            <ion-select placeholder="{{ 'Mode of Travel' | translate}}" name="Travel_Mode " #Travel_Mode_1="ngModel"
+              [(ngModel)]="Travel_Mode" required class="Customionselect">
+              <ion-select-option disabled>{{ 'Scroll Down' | translate }}
+              </ion-select-option>
+              <ion-select-option value="Govt Will Decide">{{ 'Govt Will Decide' | translate}}
+              </ion-select-option>
+              <ion-select-option value="Vehicle Sharing">{{ 'Vehicle Sharing' | translate}}
+              </ion-select-option>
+              <ion-select-option value="Bus">{{ 'Bus' | translate}}
+              </ion-select-option>
+              <ion-select-option value="Train">{{ 'Train' | translate}}
+              </ion-select-option>
+              <ion-select-option value="Private Vehicle">{{ 'Private Vehicle' | translate}}
+
+              </ion-select-option>
+              <ion-select-option value="Govt Vehicle">{{ 'Govt Vehicle' | translate}}
+              </ion-select-option>
+              <ion-select-option value="Air">{{ 'Air' | translate}}
+              </ion-select-option>
+            </ion-select>
+            <div style="color:red" *ngIf="Travel_Mode_1.errors && (Travel_Mode_1.dirty || Travel_Mode_1.touched)">
+              <p *ngIf="Travel_Mode_1.errors.required">*{{ 'Please Select Mode of Travel' | translate}}
+              </p>
+            </div>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">
+              <span style="color:red">*</span>
+              {{ 'Migration Reason' | translate}}
+
+            </ion-label>
+            <ion-select placeholder="{{ 'Migration Reason' | translate}}" name="Relocation_Reason"
+              #Relocation_Reason_1="ngModel" [(ngModel)]="Relocation_Reason" required>
+              <ion-select-option disabled>{{ 'Scroll Down' | translate}}
+              </ion-select-option>
+              <ion-select-option value="Personal">{{ 'Personal' | translate}}
+              </ion-select-option>
+              <ion-select-option value="Professional">{{ 'Professional' | translate}}
+              </ion-select-option>
+              <ion-select-option value="Medical">{{ 'Medical' | translate}}
+              </ion-select-option>
+              <ion-select-option value="Moving To Native Place">{{ 'Moving To Native Place' | translate}}
+              </ion-select-option>
+              <ion-select-option value="Moving To Safe Place">{{ 'Moving To Safe Place' | translate}}
+              </ion-select-option>
+              <ion-select-option value="Moving back To Work Place">{{ 'To Join office in city.' | translate}}
+              </ion-select-option>
+              <ion-select-option value="Going In search for a work in city.">{{ 'Going In search for a work in city.' | translate}}
+              </ion-select-option>
+              <ion-select-option value="Other">{{ 'Other' | translate}}
+              </ion-select-option>
+            </ion-select>
+            <div style="color:red"
+              *ngIf="Relocation_Reason_1.errors && (Relocation_Reason_1.dirty || Relocation_Reason_1.touched)">
+              <p *ngIf="Relocation_Reason_1.errors.required">*{{ 'Please Select Migration Reason' | translate }}
+              </p>
+            </div>
+          </ion-item>
+          <!-- Relocation Pincode -->
+
+          <!-- <div  id="dvPassportNot" style="display: none;"> -->
+
+          <ion-item>
+            <ion-label position="floating">
+              <span style="color:red">*</span>
+              {{ 'Total Member' | translate}}
+            </ion-label>
+            <ion-input type="number" autocomplete="off" name="Total_Member" #Total_Member_1="ngModel"
+              [(ngModel)]="Total_Member" required placeholder="{{ 'Enter Total Member' | translate}}"></ion-input>
+            <div style="color:red" *ngIf="Total_Member_1.errors && (Total_Member_1.dirty || Total_Member_1.touched)">
+              <p *ngIf="Total_Member_1.errors.required">*{{ 'Enter Total Member' | translate}}
+              </p>
+            </div>
+          </ion-item>
+          <!-- </div> -->
+
+        </ng-template>
+      </ion-card>
+    </div>
+
+
+    <!-- Start From Location Template Details -->
+    <div *ngIf="isRelocationFormAddressLocationInfoVisible">
+      <ng-template [ngIf]="isRelocationFormAddressLocationInfoVisible">
+        <ion-card>
+          <ion-card-header>
+            {{ 'Migration From' | translate}}
+
+          </ion-card-header>
+          <ion-item>
+            <ion-label position="floating">
+              <span style="color:red">*</span>
+              {{ 'From Pincode' | translate}}
+            </ion-label>
+            <ion-input type="number" autocomplete="off" name="From_Pincode" #From_Pincode_1="ngModel"
+              [(ngModel)]="From_Pincode " required placeholder="{{ 'Enter From Pincode' | translate}}" required>
+            </ion-input>
+            <div style="color:red" *ngIf="From_Pincode_1.errors && (From_Pincode_1.dirty || From_Pincode_1.touched)">
+              <p *ngIf="From_Pincode_1.errors.required">*{{ 'Enter From Pincode' | translate}}
+              </p>
+            </div>
+          </ion-item>
+          <br><br>
+          <div>
+            <ion-label class="Address_CSS" for="Relocation_From_Address">{{ 'Migration From Address' | translate}}
+            </ion-label>
+            <textarea autocomplete="off" id="Relocation_From_Address"
+              placeholder="{{ 'Migration From Address' | translate}}" name="From_Address" [(ngModel)]="From_Address"
+              type="text" style="border-bottom: 1px black ;"></textarea>
+       
+            <div class="Relocation_From_Map_Div">
+              <div>
+<br>
+                <div style="padding-left: 10px;">
+                  <p style="color:red;font-size:small">
+                    {{ 'Your are Here, Drag Marker to choose accurate Migration Location' | translate}}
+
+                  </p>
+                </div>
+                <ion-row style="margin-left: 26px;">
+
+                  <ion-button (click)="closedMapDiv_From()" style="width:50%; margin-left: 25%;">
+                    {{ 'Close' | translate}}
+
+                  </ion-button>
+
+                </ion-row>
+
+                <div id="Frommap"></div>
+
+              </div>
+            </div>
+          </div>
+
+          <ion-item hidden>
+            <ion-label position="floating">
+              Migration From Latitude
+            </ion-label>
+            <ion-input type="text" value="{{From_lat}}" id="From_lat" name="From_lat" [(ngModel)]="From_lat"
+              placeholder="Select or Choose Location"></ion-input>
+          </ion-item>
+
+          <ion-item hidden>
+            <ion-label position="floating">
+              Migration From Longitude
+            </ion-label>
+            <ion-input type="text" value="{{From_long}}" id="From_long" name="From_long" [(ngModel)]="From_long"
+              placeholder="Select or Choose Location"></ion-input>
+          </ion-item>
+        </ion-card>
+      </ng-template>
+    </div>
+    <!-- End Location Template Details -->
+
+
+    <!-- Start To Location Template Details -->
+    <div *ngIf="isRelocationToAddressLocationInfoVisible">
+      <ng-template [ngIf]="isRelocationToAddressLocationInfoVisible">
+        <ion-card>
+          <ion-card-header>
+            {{ 'Migration To' | translate}}
+
+          </ion-card-header>
+          <ion-item>
+            <ion-label position="floating">
+              <span style="color:red">*</span>
+              {{ 'To Pincode' | translate}}
+            </ion-label>
+            <ion-input type="number" autocomplete="off" name="To_Pincode" #To_Pincode_1="ngModel"
+              [(ngModel)]="To_Pincode" required placeholder="{{ 'Enter To Pincode' | translate}}" required>
+            </ion-input>
+            <div style="color:red" *ngIf="To_Pincode_1.errors && (To_Pincode_1.dirty || To_Pincode_1.touched)">
+              <p *ngIf="To_Pincode_1.errors.required">*{{ 'Enter To Pincode' | translate}}
+              </p>
+            </div>
+          </ion-item>
+          <br><br>
+          <div>
+            <ion-label class="Address_CSS" for="Relocation_To_Address" style="padding-right:18px;">
+              {{ 'Migration To Address' | translate}}
+            </ion-label>
+            <textarea autocomplete="off" id="Relocation_To_Address"
+              placeholder="{{ 'Migration To Address' | translate}}" value="{{To_Address}}" name="To_Address"
+              [(ngModel)]="To_Address" type="text" style="border-bottom: 1px black ;"></textarea>
+          
+            <div class="Relocation_To_Map_Div">
+              <div>
+                <br>
+                <div style="padding-left: 10px;">
+                  <p style="color:red;font-size:small">
+                    {{ 'Your are Here, Drag Marker to choose accurate Migration Location' | translate}}
+
+                  </p>
+                </div>
+                <ion-row style="margin-left: 26px;">
+
+                  <ion-button (click)="closedMapDiv_To()" style="width:50%; margin-left: 25%;">{{ 'Close' | translate}}
+
+                  </ion-button>
+
+                </ion-row>
+
+                <div id="Tomap"></div>
+
+              </div>
+            </div>
+          </div>
+
+          <ion-item hidden>
+            <ion-label position="floating">
+              Migration To Latitude
+            </ion-label>
+            <ion-input type="text" value="{{To_lat}}" id="To_lat" name="To_lat" [(ngModel)]="To_lat"
+              placeholder="Select or Choose Location"></ion-input>
+          </ion-item>
+
+          <ion-item hidden>
+            <ion-label position="floating">
+              Migration To Longitude
+            </ion-label>
+            <ion-input type="text" value="{{To_long}}" id="To_long" name="To_long" [(ngModel)]="To_long"
+              placeholder="Select or Choose Location"></ion-input>
+          </ion-item>
+        </ion-card>
+      </ng-template>
+    </div>
+    <!-- End Location Template Details -->
+
+
+
+    <ion-button style="width:50%; margin-left: 25%;" type="submit" (click)="addRelocation(form.value); form.reset();"
+      [disabled]="form.invalid">{{ 'Submit' | translate}}
+    </ion-button>
+  </form>
+  <!-- Start Location Template Details -->
+  <div *ngIf="isCurrentAddressLocationInfoVisible">
+    <ng-template [ngIf]="isCurrentAddressLocationInfoVisible">
+      <ion-card>
+        <ion-card-header>
+          Current Location
+        </ion-card-header>
+
+        <ion-item>
+          <ion-label position="floating">
+            Current Latitude
+          </ion-label>
+          <ion-input type="text" value="{{Current_lat}}" id="Current_lat" name="Current_lat" [(ngModel)]="Current_lat"
+            placeholder="Select or Choose Location"></ion-input>
+        </ion-item>
+
+        <ion-item hidden>
+          <ion-label position="floating">
+            Current Longitude
+          </ion-label>
+          <ion-input type="text" value="{{Current_long}}" id="Current_long" name="Current_long"
+            [(ngModel)]="Current_long" placeholder="Select or Choose Location"></ion-input>
+        </ion-item>
+
+        <ion-item hidden>
+          <ion-label position="floating">
+            Current Accuracy
+          </ion-label>
+          <ion-input type="text" [readonly]="isReadonly" value="{{Current_Loc_Accuracy}}" id="Current_Loc_Accuracy"
+            name="Current_Loc_Accuracy" [(ngModel)]="Current_Loc_Accuracy"></ion-input>
+        </ion-item>
+      </ion-card>
+    </ng-template>
+  </div>
+  <!-- End Location Template Details -->
+
+  <!-- IcurrentAddress Ends -->
+</ion-content>
+
+<ion-footer style="height: 30px;">
+  <ion-toolbar style="margin-top: -12px;">
+    <small style="margin-bottom: 3px;">
+      <b style="text-align: center;color:hsl(28, 95%, 55%); float:center; margin-bottom: 20px;">Powered
+        by CodeRize
+        Technologies Pvt. Ltd.</b>
+    </small> </ion-toolbar>
+</ion-footer>

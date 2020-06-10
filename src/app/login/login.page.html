@@ -1,0 +1,104 @@
+<ion-header class="Tab_CSS">
+  <ion-toolbar>
+    <ion-buttons slot="start" style="color: white;">
+      <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+    <ion-title style="color:#f9841d;">{{ 'Login' | translate}}
+</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <div class="login-content">
+
+    <ion-row>
+      <span style="font-size: 20px;
+      margin-top: 74px;
+    margin-left: 130px; color: #f9841d; "><h4>Yoddha Parivartan</h4></span>
+      <img src="../../assets/Logo.png"
+       style="height: 55px;
+      width: 195px;
+      margin-top: -50px;">
+    </ion-row>
+    <!-- Logo -->
+    <div padding-horizontal text-center class="animated fadeInDown">
+      <div class="logo"></div>
+      <br>
+      <h2 ion-text style="margin-left: 160px; color:#f9841d">
+        <strong style="font-size:26px;">{{ 'Login' | translate }}
+</strong>
+      </h2>
+    </div>
+
+    <!-- Login form -->
+    <form class="list-form" #form="ngForm">
+      <ion-item>
+        <ion-label position="floating">
+            <ion-icon name="person" item-start class="text-light"></ion-icon>&nbsp;&nbsp;{{ 'Username' | translate}}
+
+
+          </ion-label>
+          <ion-input autocomplete="off" type="tel" minlength="10" maxlength="12" pattern="[0-9]{10}" name="mobileno" #mobileno_1="ngModel" minlength="10" pattern="[0-9]{10}" [(ngModel)]="mobileno" required placeholder="{{ 'Enter 10 digit Mobile Number' | translate}}"></ion-input>
+          <div style="color:red" *ngIf="mobileno_1.errors && (mobileno_1.dirty || mobileno_1.touched)">
+            <p *ngIf="mobileno_1.errors.required">
+              {{ 'Please Enter Mobile Number' | translate}}
+
+
+            </p>
+          </div>
+          <div style="color:red" *ngIf="mobileno_1.errors && (mobileno_1.dirty || mobileno_1.touched)">
+            <p *ngIf="mobileno_1.errors.minlength">
+              {{ 'Enter 10 digit Mobile Number' | translate}}
+
+            </p>
+          </div>
+          <div style="color:red" *ngIf="mobileno_1.errors && (mobileno_1.dirty || mobileno_1.touched)">
+            <p *ngIf="mobileno_1.errors.maxlength">
+              {{ 'Enter 10 digit Mobile Number' | translate}}
+            </p>
+          </div>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">
+          <ion-icon name="key" item-start class="text-light"></ion-icon>&nbsp;&nbsp;{{ 'Password' | translate}}
+
+        </ion-label>
+        <ion-input autocomplete="off" name="password" #Password_2="ngModel" placeholder="{{ 'Please Enter Password' | translate}}" [(ngModel)]="password" type="password" ngModel required></ion-input>
+        <div style="color:red" *ngIf="Password_2.errors && (Password_2.dirty || Password_2.touched)">
+          <p *ngIf="Password_2.errors.required">*{{ 'Please Enter Password' | translate}}
+</p>
+         </div>
+         <div style="color:red" *ngIf="Password_2.errors && (Password_2.dirty || Password_2.touched)">
+          <p *ngIf="Password_2.errors.minlength">
+            {{ 'Please Enter atleast 6 characters' | translate}}
+
+          </p>
+        </div>
+      </ion-item>
+      <!-- <ion-button type="submit" (click)="ValidateUser(form.value)">Submit Validate</ion-button> -->
+     
+    <div>
+      <ion-button ion-button icon-start block tappable (click)="ValidateUser(form.value);form.reset();" [disabled]="form.invalid" class="btn_sign_in">
+       {{ 'SIGN IN' | translate}}
+      </ion-button>
+    </div>
+
+    <!-- <ion-button (click)="changeText()" ion-button>{{text}}</ion-button>  -->
+    <!-- logout -->
+    
+  </form>
+  <!-- End Login form -->
+  
+  </div><br><br>
+  <span style="margin-left: 60px;"><a href="https://www.coderize.in">Copyright</a> &copy; 2019</span>&nbsp;&nbsp;<span>Visit us @ &nbsp;<a href="https://www.coderize.in">Coderize.in</a></span>
+
+</ion-content>
+<ion-footer style="height: 30px;">
+  <ion-toolbar style="margin-top: -12px;">
+    <small style="margin-bottom: 3px;">
+      <b style="text-align: center;color:hsl(28, 95%, 55%); float:center; margin-bottom: 20px;">Powered by CodeRize
+        Technologies Pvt. Ltd.</b>
+    </small>  </ion-toolbar>
+</ion-footer>

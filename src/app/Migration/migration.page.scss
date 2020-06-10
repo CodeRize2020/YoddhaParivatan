@@ -1,0 +1,88 @@
+//Header CSS
+.Tab_CSS
+{
+    background: #0c4079;
+    border: 2px solid #f2f2f2;
+    color: #f2f2f2;
+  }
+
+  .Tab_CSS:hover
+{
+    background: #f9841d;
+}
+.active
+{
+  background: #f9841d;
+}
+
+ion-toolbar{
+    --background:#0c4079;
+    color: #ffff;
+    text-align: center;
+  }
+// End Header CSS
+ion-card-header{
+  text-align: center;
+}
+
+  //Toster Css
+  .my-custom-class
+  {
+    background-color:#f9841d !important;
+    color:#000 !important;
+  }
+
+  ion-button {
+    --background:#f9841d;
+    --background-focused:#f9841d;
+    --background-activated:#f9841d;
+  }
+
+  ion-tab-button {
+    --color: #fff !important;
+  }
+  .Customionselect{
+  // max-width: 70% !important;
+   // max-height: 85% !important;
+   overflow-y:scroll !important;
+
+}
+ion-select-option{
+  max-width: fit-content;
+  max-height: fit-content;
+  overflow-y:scroll !important;
+}
+
+  //  Map CSS
+
+#Frommap {
+  width: auto;
+  height: 40vh;
+  margin: auto;
+  border: 1px solid black;
+  position: relative;
+  }
+
+  #Tomap {
+    width: auto;
+    height: 40vh;
+    margin: auto;
+    border: 1px solid black;
+    position: relative;
+    }
+  
+    #RelocationQmap {
+      width: auto;
+      height: 40vh;
+      margin: auto;
+      border: 1px solid black;
+      position: relative;
+      }
+
+  .Address_CSS
+{
+  color: #000;
+  padding-right: 7px;
+  margin-left: 15px;
+}
+//
